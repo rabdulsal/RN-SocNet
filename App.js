@@ -1,26 +1,28 @@
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import axios from "axios";
-import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
-import { Pressable } from "react-native";
 import {
+  ActivityIndicator,
   Button,
   FlatList,
+  Pressable,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
 import { DevicesScreen } from "./screens/DevicesScreen";
-import { ScannerScreen } from "./screens/ScannerScreen";
+import ScannerScreen from "./screens/ScannerScreen";
 import { Ionicons } from "@expo/vector-icons";
+import DashboardScreen from "./screens/DashboardScreen";
+import * as Networking from "./utils/http";
 
 const Stack = createNativeStackNavigator();
-// const navigation = useNavigation();
 
 export default function App() {
-  function pressedRightButton(navigation) {
+  const [allDevices, setAllDevices] = useState();
+
+  function pressedScannerButton(navigation) {
     navigation.navigate("Scanner");
   }
 
@@ -29,22 +31,20 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name={"Devices"}
-            component={DevicesScreen}
+            name="Dashboard"
+            component={DashboardScreen}
             options={({ navigation }) => ({
-              title: "Your Devices",
-              headerRight: ({ tintColor }) => (
-                <Pressable onPress={pressedRightButton.bind(this, navigation)}>
-                  <Ionicons name="camera" size={24} color={tintColor} />
+              title: "Dashboard",
+              headerRight: () => (
+                <Pressable
+                  onPress={pressedScannerButton.bind(this, navigation)}
+                >
+                  <Ionicons name="camera" size={24} color="#0000ff" />
                 </Pressable>
               ),
             })}
           />
-          <Stack.Screen
-            name={"Scanner"}
-            component={ScannerScreen}
-            options={() => ({ title: "Barcode Scanner" })}
-          />
+          <Stack.Screen name="Scanner" component={ScannerScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </View>

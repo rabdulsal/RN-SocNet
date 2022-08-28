@@ -2,8 +2,9 @@ import axios from "axios";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
+import Card from "../components/Card";
 
-export function DevicesScreen() {
+export default function DevicesScreen() {
   const BASE_URL = "https://mockend.com/learningmachine00/testAPI/Device";
 
   const [allDevices, setAllDevices] = useState([]);
@@ -38,13 +39,14 @@ export function DevicesScreen() {
     const device = deviceItem.item;
 
     return (
-      <View style={styles.card}>
-        <Text>{device.name}</Text>
-        <Text>{device.serialNumber}</Text>
-        <Text>{device.location}</Text>
-        <Text>{device.type}</Text>
-        <Text>{device.createdAt}</Text>
-      </View>
+      //   <View style={styles.card}>
+      //     <Text>{device.name}</Text>
+      //     <Text>{device.serialNumber}</Text>
+      //     <Text>{device.location}</Text>
+      //     <Text>{device.type}</Text>
+      //     <Text>{device.createdAt}</Text>
+      //   </View>
+      <Card device={device} />
     );
   }
 
