@@ -15,7 +15,9 @@ import { DevicesScreen } from "./screens/DevicesScreen";
 import ScannerScreen from "./screens/ScannerScreen";
 import { Ionicons } from "@expo/vector-icons";
 import DashboardScreen from "./screens/DashboardScreen";
-import * as Networking from "./utils/http";
+import DeviceDetailScreen from "./screens/DeviceDetailScreen";
+import UsersScreen from "./screens/UsersScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +33,20 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
+            name={"UsersList"}
+            component={UsersScreen}
+            options={{
+              title: "Users List",
+            }}
+          />
+          <Stack.Screen
+            name={"UserProfile"}
+            component={ProfileScreen}
+            options={{
+              display: "modal",
+            }}
+          />
+          <Stack.Screen
             name="Dashboard"
             component={DashboardScreen}
             options={({ navigation }) => ({
@@ -45,6 +61,13 @@ export default function App() {
             })}
           />
           <Stack.Screen name="Scanner" component={ScannerScreen} />
+          <Stack.Screen
+            name="DeviceDetail"
+            component={DeviceDetailScreen}
+            options={{
+              presentation: "modal",
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </View>

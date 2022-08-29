@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import {
   View,
@@ -10,7 +11,8 @@ import {
 import Card from "../components/Card";
 import * as Networking from "../utils/http";
 
-export default function DashboardScreen() {
+export default function DashboardScreen({ navigation }) {
+  // const navigation = useNavigation();
   //   let filteredDevices = devices;
   const [allDevices, setAllDevices] = useState([]);
   const [filteredDevices, setFilteredDevices] = useState([]);
@@ -42,8 +44,6 @@ export default function DashboardScreen() {
     fetchDevices();
   }, []);
 
-  const buttons = [];
-
   function pressedFilterButton(title) {
     const filtered = allDevices.filter((device) => device.location === title);
     setFilteredDevices(filtered);
@@ -53,13 +53,21 @@ export default function DashboardScreen() {
   function renderDevice(deviceData) {
     const device = deviceData.item;
     return (
-      <Card device={device} />
+      <Card device={device} onPress={onPress} />
       //   <View>
       //     {/* <Card device={device} /> */}
       //     <Text>Test Clip</Text>
       //   </View>
     );
   }
+
+  function onPress(id) {
+    navigation.navigate("DeviceDetail", {
+      deviceId: id,
+    });
+  }
+
+  const buttons = [];
 
   for (var idx = 0; idx < filters.length; idx++) {
     // console.log(title);

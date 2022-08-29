@@ -1,14 +1,14 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
-export default function Card({ device }) {
+export default function Card({ device, onPress }) {
   return (
-    <View style={styles.card}>
+    <Pressable style={styles.card} onPress={onPress.bind(this, device.id)}>
       <Text>{device.name}</Text>
       <Text>{device.serialNumber}</Text>
       <Text>{device.location}</Text>
       <Text>{device.type}</Text>
       <Text>{device.createdAt}</Text>
-    </View>
+    </Pressable>
   );
 }
 
