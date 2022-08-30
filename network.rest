@@ -1,7 +1,15 @@
-###
+### Fetch All Users (limit 20/page)
 https://dummyapi.io/data/v1/user
 app-id: 630c0cf9091a02f78c2f44f9
 
-###
-https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ca
+### User Profile
+https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109cd
+app-id: 630c0cf9091a02f78c2f44f9
+
+### Get Post-Comments (limit 20/page)
+https://dummyapi.io/data/v1/post/60d21af267d0d8992e610b8d/comment
+app-id: 630c0cf9091a02f78c2f44f9
+
+### Posts List
+https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ca/post
 app-id: 630c0cf9091a02f78c2f44f9

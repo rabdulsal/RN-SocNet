@@ -1,6 +1,16 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useLayoutEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  FlatList,
+  StyleSheet,
+  Image,
+  ActivityIndicator,
+  Pressable,
+} from "react-native";
+import PostsList from "../components/PostsList";
 import { getUserProfile } from "../utils/http";
 
 export default function UserProfile({ navigation, route }) {
@@ -8,6 +18,7 @@ export default function UserProfile({ navigation, route }) {
 
   const [profile, setProfile] = useState({});
   const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState();
 
   useEffect(() => {
     async function fetchProfile(userId) {
@@ -18,15 +29,21 @@ export default function UserProfile({ navigation, route }) {
     }
     fetchProfile(userId);
   }, []);
-
+  // FIXME: Note useLayoutEffect is best hook
   useLayoutEffect(() => {
     navigation.setOptions({
       title: userId,
-      headerLeft: () => {
-        <Ionicons name="close" size={24} color="red" />;
-      },
+      headerLeft: () => (
+        <Pressable>
+          <Ionicons
+            name="close"
+            size={24}
+            onPress={() => navigation.goBack()}
+          />
+        </Pressable>
+      ),
     });
-  });
+  }, []);
 
   if (loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
@@ -53,16 +70,26 @@ export default function UserProfile({ navigation, route }) {
   }
 
   return (
-    <View style={styles.container}>
-      <Image source={{ uri: profile.picture }} style={styles.userImage} />
-      <View>
-        <Text
-          style={styles.userName}
-        >{`${profile.firstName} ${profile.lastName}`}</Text>
-        <Text>{profile.email}</Text>
-        {location}
-      </View>
-    </View>
+    <FlatList
+      ListHeaderComponent={
+        <>
+          <View style={[styles.userDetails, styles.container]}>
+            <Image source={{ uri: profile.picture }} style={styles.userImage} />
+            <View>
+              <Text
+                style={styles.userName}
+              >{`${profile.firstName} ${profile.lastName}`}</Text>
+              <Text>{profile.email}</Text>
+              {location}
+            </View>
+          </View>
+          <Text style={styles.postsTitle}>POSTS:</Text>
+          <View>
+            <PostsList userId={userId} />
+          </View>
+        </>
+      }
+    />
   );
 }
 
@@ -76,6 +103,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#ddd",
     backgroundColor: "#fff",
+  },
+  userDetails: {
     flexDirection: "row",
   },
   userName: {
@@ -92,5 +121,10 @@ const styles = StyleSheet.create({
   },
   address: {
     flexDirection: "row",
+  },
+  postsTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginHorizontal: 20,
   },
 });

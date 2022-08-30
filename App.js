@@ -43,7 +43,7 @@ export default function App() {
             name={"UserProfile"}
             component={ProfileScreen}
             options={{
-              display: "modal",
+              presentation: "modal",
             }}
           />
           <Stack.Screen
