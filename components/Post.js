@@ -1,6 +1,15 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 
 export default function Post({ post }) {
+  const navigation = useNavigation();
+
+  function selectedPost(postId) {
+    navigation.navigate("PostDetails", {
+      post: post,
+    });
+  }
+
   let ownerInfo = (
     <View>
       <Text>Loading Poster Info...</Text>
@@ -8,7 +17,7 @@ export default function Post({ post }) {
   );
   let ownerContent = (
     <View>
-      <Text>Loader Poster Info...</Text>
+      <Text>Loading Poster Info...</Text>
     </View>
   );
 
@@ -37,7 +46,8 @@ export default function Post({ post }) {
   }
 
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={selectedPost}>
+      {/* FIXME: Use PostLayout */}
       <View style={styles.postCard}>
         <View style={styles.userContent}>{ownerInfo}</View>
         <View style={styles.postContent}>
@@ -47,7 +57,8 @@ export default function Post({ post }) {
           <View style={styles.tagsDetails}>{tags}</View>
         </View>
       </View>
-    </View>
+      {/* End PostLayout */}
+    </Pressable>
   );
 }
 
@@ -56,6 +67,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   postCard: {
+    // FIXME: Erase refactor
     flex: 1,
     flexDirection: "row",
     marginHorizontal: 20,
@@ -67,12 +79,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   userContent: {
+    // FIXME: Erase refactor
     flex: 1,
   },
   postContent: {
+    // FIXME: Erase refactor
     flex: 5,
+    marginHorizontal: 5,
   },
   userImage: {
+    // FIXME: Erase refactor
     height: 45,
     width: 45,
     borderRadius: 45 / 2,
@@ -81,15 +97,18 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   userName: {
+    // FIXME: Erase refactor
     fontWeight: "bold",
   },
   postImage: {
+    // FIXME: Erase refactor
     borderRadius: 8,
     width: "100%",
     minHeight: 200,
     marginVertical: 5,
   },
   tagsDetails: {
+    // FIXME: Erase-refactor
     flexDirection: "row",
     marginVertical: 5,
   },

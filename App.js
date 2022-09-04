@@ -18,6 +18,7 @@ import DashboardScreen from "./screens/DashboardScreen";
 import DeviceDetailScreen from "./screens/DeviceDetailScreen";
 import UsersScreen from "./screens/UsersScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import PostDetailsScreen from "./screens/PostDetailsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,7 +43,15 @@ export default function App() {
           <Stack.Screen
             name={"UserProfile"}
             component={ProfileScreen}
+            // options={{
+            //   presentation: "modal",
+            // }}
+          />
+          <Stack.Screen
+            name="PostDetails"
+            component={PostDetailsScreen}
             options={{
+              title: "Post Details",
               presentation: "modal",
             }}
           />

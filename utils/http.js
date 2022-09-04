@@ -39,6 +39,11 @@ export async function getUserPosts(id) {
   return data;
 }
 
+export async function getPostComments(id) {
+  const response = await axios.get(DUMMY_URL + `/post/${id}/comment`);
+  return response.data;
+}
+
 export async function fetchDevice(id) {
   const response = await axios.get(BASE_URL + `/${id}`);
   return response.data;

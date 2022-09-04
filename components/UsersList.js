@@ -25,6 +25,7 @@ export default function UsersList({ users }) {
 
   function renderUser(userData) {
     const user = userData.item;
+    // NOTE: 'onPress' passes userId from within the UserCard, where the data is binded
     return <UserCard user={user} onPress={onPress} />;
   }
 

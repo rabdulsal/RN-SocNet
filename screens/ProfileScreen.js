@@ -33,15 +33,17 @@ export default function UserProfile({ navigation, route }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: userId,
-      headerLeft: () => (
-        <Pressable>
-          <Ionicons
-            name="close"
-            size={24}
-            onPress={() => navigation.goBack()}
-          />
-        </Pressable>
-      ),
+      // Close button for Modal presentation
+      //   headerLeft: () => (
+      //     <Pressable>
+      //       <Ionicons
+      //         name="close"
+      //         size={24}
+      //         color="#0000ff"
+      //         onPress={() => navigation.goBack()}
+      //       />
+      //     </Pressable>
+      //   ),
     });
   }, []);
 
@@ -108,10 +110,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   userName: {
+    // FIXME: Extract to ContentLayout
     fontSize: 16,
     fontWeight: "bold",
   },
   userImage: {
+    // FIXME: Extract to ContentLayout
     width: 100,
     height: 100,
     marginRight: 10,
