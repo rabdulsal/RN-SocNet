@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     // FIXME: Erase refactor
     flex: 1,
     flexDirection: "row",
-    marginHorizontal: 20,
+    // marginHorizontal: 20,
     marginVertical: 5,
     padding: 8,
     borderRadius: 8,

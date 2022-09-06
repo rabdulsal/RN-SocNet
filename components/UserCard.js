@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 export default function UserCard({ user, onPress }) {
   const firstName = user.firstName;
   const lastName = user.lastName;
-  console.log(`${firstName} ${lastName}`);
   return (
     <Pressable style={styles.card} onPress={onPress.bind(this, user.id)}>
       <View style={styles.userImage}>

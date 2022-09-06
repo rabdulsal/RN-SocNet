@@ -19,10 +19,9 @@ export async function fetchDevices() {
   return response.data;
 }
 
-export async function getUsers() {
-  const response = await axios.get(DUMMY_URL + "/user");
-  // console.log(response["data"]);
-  const userData = response.data;
+export async function getUsers(page) {
+  const response = await axios.get(DUMMY_URL + `/user?page=${page}`);
+  const userData = response.data.data;
   return userData;
 }
 

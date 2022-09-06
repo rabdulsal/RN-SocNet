@@ -13,7 +13,6 @@ export default function DevicesScreen() {
   useEffect(() => {
     async function getDevices() {
       const response = await axios.get(BASE_URL);
-      // console.log(JSON.stringify(response));
       const deviceData = await response.data;
       setAllDevices(deviceData);
       setFilterDevices(deviceData);

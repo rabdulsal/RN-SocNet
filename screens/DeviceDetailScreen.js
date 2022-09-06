@@ -30,7 +30,6 @@ export default function DeviceDetailScreen({ navigation, route }) {
   async function getDevice(id) {
     setShowIndicator(true);
     const response = await fetchDevice(id);
-    // console.log(response);
     setShowIndicator(false);
     setDevice(response);
   }

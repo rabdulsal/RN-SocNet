@@ -1,23 +1,18 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  Pressable,
-  Alert,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import UsersList from "../components/UsersList";
 import * as Networking from "../utils/http";
 import { useState, useEffect, useLayoutEffect } from "react";
 import UsersSearchBar from "../components/UsersSearchBar";
 import PostsList from "../components/PostsList";
+import Spinner from "../components/Spinner";
 
 export default function UsersScreen({ navigation }) {
-  const [users, setUsers] = useState();
-  const [currFilter, setCurrFilter] = useState("posts");
+  const [users, setUsers] = useState([]);
+  const [currFilter, setCurrFilter] = useState("users");
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [currPage, setCurrPage] = useState(0);
+  const [loadingMoreUsers, setLoadingMoreUsers] = useState(false);
 
   const filters = ["Users", "Posts"];
   const filterButtons = [];
@@ -41,10 +36,16 @@ export default function UsersScreen({ navigation }) {
     // Alert.alert(`${currFilter} ${idx}`);
   }
 
-  function setFilterAndUpdateView(idx) {
-    setCurrFilter(filters[idx]);
-    fetchDataBasedOnFilter();
-    setFilteredView();
+  async function fetchMoreUsers() {
+    const nextPage = currPage + 1;
+    setCurrPage(nextPage);
+    setLoadingMoreUsers(true);
+    const usersResp = await Networking.getUsers(nextPage);
+    for (var i = 0; i < usersResp.length; i++) {
+      const user = usersResp[i];
+      setUsers((arr) => [...arr, user]);
+    }
+    setLoadingMoreUsers(false);
   }
 
   function makeFilters() {
@@ -65,9 +66,9 @@ export default function UsersScreen({ navigation }) {
     return filterButtons;
   }
 
-  async function fetchUsers() {
-    const usersResp = await Networking.getUsers();
-    setUsers(usersResp.data);
+  async function fetchUsers(page = 0) {
+    const usersResp = await Networking.getUsers(page);
+    setUsers(usersResp);
   }
 
   async function fetchPosts() {
@@ -76,7 +77,7 @@ export default function UsersScreen({ navigation }) {
   }
 
   function fetchDataBasedOnFilter() {
-    if (currFilter.toLowerCase === "users") {
+    if (currFilter.toLowerCase() === "users") {
       fetchUsers();
     } else {
       fetchPosts();
@@ -85,17 +86,29 @@ export default function UsersScreen({ navigation }) {
 
   if (isLoading) {
     return (
-      <View style={styles.filterButtons}>
-        {makeFilters()}
-        <ActivityIndicator size="large" />;
-      </View>
+      <>
+        <View style={styles.filterButtons}>{makeFilters()}</View>
+        <Spinner />
+      </>
     );
   }
-  if (currFilter === "users") {
+
+  let moreUsersButtonView = (
+    <Pressable style={styles.getMoreButton} onPress={fetchMoreUsers}>
+      <Text style={styles.moreButtonText}>Get More Users</Text>
+    </Pressable>
+  );
+
+  if (loadingMoreUsers) {
+    moreUsersButtonView = <Spinner />;
+  }
+
+  if (currFilter.toLowerCase() === "users") {
     return (
       <View style={styles.container}>
         <View style={styles.filterButtons}>{makeFilters()}</View>
         <UsersList users={users} />
+        {moreUsersButtonView}
       </View>
     );
   } else {
@@ -111,7 +124,7 @@ export default function UsersScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // marginHorizontal: 8,
+    marginHorizontal: 20,
     marginVertical: 10,
   },
   filterButton: {
@@ -126,6 +139,17 @@ const styles = StyleSheet.create({
   },
   filterButtonsText: {
     color: "#fff",
+    fontWeight: "bold",
+  },
+  getMoreButton: {
+    // backgroundColor: "#0000ff",
+    padding: 10,
+    borderRadius: 6,
+  },
+  moreButtonText: {
+    textAlign: "center",
+    color: "#0000ff",
+    fontSize: 16,
     fontWeight: "bold",
   },
 });

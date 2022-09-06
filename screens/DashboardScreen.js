@@ -12,8 +12,6 @@ import Card from "../components/Card";
 import * as Networking from "../utils/http";
 
 export default function DashboardScreen({ navigation }) {
-  // const navigation = useNavigation();
-  //   let filteredDevices = devices;
   const [allDevices, setAllDevices] = useState([]);
   const [filteredDevices, setFilteredDevices] = useState([]);
   const [showIndicator, setShowIndicator] = useState(false);
@@ -47,18 +45,11 @@ export default function DashboardScreen({ navigation }) {
   function pressedFilterButton(title) {
     const filtered = allDevices.filter((device) => device.location === title);
     setFilteredDevices(filtered);
-    // filteredDevices = filtered;
   }
 
   function renderDevice(deviceData) {
     const device = deviceData.item;
-    return (
-      <Card device={device} onPress={onPress} />
-      //   <View>
-      //     {/* <Card device={device} /> */}
-      //     <Text>Test Clip</Text>
-      //   </View>
-    );
+    return <Card device={device} onPress={onPress} />;
   }
 
   function onPress(id) {
@@ -70,7 +61,6 @@ export default function DashboardScreen({ navigation }) {
   const buttons = [];
 
   for (var idx = 0; idx < filters.length; idx++) {
-    // console.log(title);
     const filter = filters[idx];
     buttons.push(
       <Pressable

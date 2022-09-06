@@ -4,7 +4,7 @@ import UserCard from "./UserCard";
 import * as Networking from "../utils/http";
 import { useNavigation } from "@react-navigation/native";
 
-export default function UsersList({ users }) {
+export default function UsersList({ users, fetchMoreUsers }) {
   /*
     "id": "60d0fe4f5311236168a109cb",
     "title": "miss",
@@ -29,8 +29,8 @@ export default function UsersList({ users }) {
     return <UserCard user={user} onPress={onPress} />;
   }
 
-  function getMoreUsers() {
-    console.log("Press GET MORE!!");
+  async function getMoreUsers() {
+    fetchMoreUsers();
   }
 
   return (
@@ -40,11 +40,6 @@ export default function UsersList({ users }) {
         keyExtractor={(item) => item.id}
         renderItem={renderUser}
       />
-      <Button
-        onPress={getMoreUsers}
-        style={styles.getMoreButton}
-        title="More Users"
-      />
     </View>
   );
 }
@@ -53,12 +48,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-  },
-  getMoreButton: {
-    backgroundColor: "#0000ff",
-    padding: 5,
-    borderRadius: 6,
-    color: "#fff",
-    fontWeight: "bold",
   },
 });
