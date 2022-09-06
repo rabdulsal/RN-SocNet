@@ -32,6 +32,11 @@ export async function getUserProfile(id) {
   return data;
 }
 
+export async function createUser(userData) {
+  const createResponse = await axios.post(DUMMY_URL + "/user/create", userData);
+  return createResponse.data.data;
+}
+
 export async function getPosts() {
   const response = await axios.get(DUMMY_URL + "/post");
   return await response.data.data;

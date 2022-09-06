@@ -74,8 +74,8 @@ export default function UserProfile({ navigation, route }) {
   return (
     <FlatList
       ListHeaderComponent={
-        <>
-          <View style={[styles.userDetails, styles.container]}>
+        <View style={styles.container}>
+          <View style={styles.userDetails}>
             <Image source={{ uri: profile.picture }} style={styles.userImage} />
             <View>
               <Text
@@ -89,7 +89,7 @@ export default function UserProfile({ navigation, route }) {
           <View>
             <UserPostsList userId={userId} />
           </View>
-        </>
+        </View>
       }
     />
   );
@@ -99,15 +99,15 @@ const styles = StyleSheet.create({
   container: {
     // flex: 1,
     marginHorizontal: 20,
+  },
+  userDetails: {
+    flexDirection: "row",
     marginVertical: 10,
     padding: 8,
     borderRadius: 8,
     borderWidth: 2,
     borderColor: "#ddd",
     backgroundColor: "#fff",
-  },
-  userDetails: {
-    flexDirection: "row",
   },
   userName: {
     // FIXME: Extract to ContentLayout
@@ -129,6 +129,6 @@ const styles = StyleSheet.create({
   postsTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    marginHorizontal: 20,
+    // marginHorizontal: 20,
   },
 });

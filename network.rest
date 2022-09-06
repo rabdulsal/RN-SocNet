@@ -13,3 +13,7 @@ app-id: 630c0cf9091a02f78c2f44f9
 ### Posts List
 https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ca/post
 app-id: 630c0cf9091a02f78c2f44f9
+
+### Delete User
+DELETE https://dummyapi.io/data/v1/user/6317c50a4373f579c42c1141
+app-id: 630c0cf9091a02f78c2f44f9

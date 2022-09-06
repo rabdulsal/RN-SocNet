@@ -19,6 +19,7 @@ import DeviceDetailScreen from "./screens/DeviceDetailScreen";
 import UsersScreen from "./screens/UsersScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import PostDetailsScreen from "./screens/PostDetailsScreen";
+import CreateUserScreen from "./screens/CreateUserScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,10 @@ export default function App() {
     navigation.navigate("Scanner");
   }
 
+  function pressedAddUserButton(navigation) {
+    navigation.navigate("AddUser");
+  }
+
   return (
     <View style={styles.container}>
       <NavigationContainer>
@@ -36,9 +41,16 @@ export default function App() {
           <Stack.Screen
             name={"UsersList"}
             component={UsersScreen}
-            options={{
+            options={({ navigation }) => ({
               title: "Users List",
-            }}
+              headerLeft: () => (
+                <Pressable
+                  onPress={pressedAddUserButton.bind(this, navigation)}
+                >
+                  <Ionicons name="md-person-add" size={24} color="#0000ff" />
+                </Pressable>
+              ),
+            })}
           />
           <Stack.Screen
             name={"UserProfile"}
@@ -47,6 +59,13 @@ export default function App() {
             //   presentation: "modal",
             // }}
           />
+          <Stack.Screen
+            name={"AddUser"}
+            component={CreateUserScreen}
+            options={{
+              title: "Create User",
+            }}
+          ></Stack.Screen>
           <Stack.Screen
             name="PostDetails"
             component={PostDetailsScreen}
