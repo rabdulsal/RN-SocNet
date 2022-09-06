@@ -33,6 +33,11 @@ export async function getUserProfile(id) {
   return data;
 }
 
+export async function getPosts() {
+  const response = await axios.get(DUMMY_URL + "/post");
+  return await response.data.data;
+}
+
 export async function getUserPosts(id) {
   const response = await axios.get(DUMMY_URL + `/user/${id}/post`);
   const data = await response.data;

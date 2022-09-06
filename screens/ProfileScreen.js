@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
   Pressable,
 } from "react-native";
-import PostsList from "../components/PostsList";
+import UserPostsList from "../components/UserPostsList";
 import { getUserProfile } from "../utils/http";
 
 export default function UserProfile({ navigation, route }) {
@@ -87,7 +87,7 @@ export default function UserProfile({ navigation, route }) {
           </View>
           <Text style={styles.postsTitle}>POSTS:</Text>
           <View>
-            <PostsList userId={userId} />
+            <UserPostsList userId={userId} />
           </View>
         </>
       }
