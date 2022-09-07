@@ -52,11 +52,7 @@ export default function UserProfile({ navigation, route }) {
   }
 
   // FIXME: Note that b/c location data is a nested object, to avoid crash on null location, must create placeholder JSX to be populated at later point
-  let location = (
-    <View>
-      <Text>Loading Location...</Text>
-    </View>
-  );
+  let location = <View></View>;
 
   if (profile.location) {
     location = (

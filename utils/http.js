@@ -34,7 +34,7 @@ export async function getUserProfile(id) {
 
 export async function createUser(userData) {
   const createResponse = await axios.post(DUMMY_URL + "/user/create", userData);
-  return createResponse.data.data;
+  return createResponse.data;
 }
 
 export async function getPosts() {
@@ -60,6 +60,11 @@ export async function fetchDevice(id) {
 
 export async function createDevice(deviceData) {
   const response = await axios.post(BASE_URL, deviceData);
+  return response.data;
+}
+
+export async function deleteUser(id) {
+  const response = await axios.delete(DUMMY_URL + `/user/${id}`);
   return response.data;
 }
 
